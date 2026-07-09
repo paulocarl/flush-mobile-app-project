@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flush</title>
+  <link rel="stylesheet" href="./project/tokens.css">
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    (async function () {
+      try {
+        const babelOpts = {
+          presets: [['react', { runtime: 'classic' }]],
+        };
+
+        const sources = [
+          './project/ios-frame.jsx',
+          './project/flush-scenes.jsx',
+        ];
+
+        for (const src of sources) {
+          const code = await fetch(src).then(r => r.text());
+          const { code: js } = Babel.transform(code, babelOpts);
+          (0, eval)(js);
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(window.FlushWeatherTap));
+      } catch (err) {
+        document.getElementById('root').innerHTML =
+          '<pre style="color:#ff5e48;padding:32px;font-size:13px;white-space:pre-wrap">' +
+          err.stack + '</pre>';
+      }
+    })();
+  </script>
+</body>
+</html>

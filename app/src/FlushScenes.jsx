@@ -970,12 +970,12 @@ function DropletIcon({ color, size = 20 }) {
     }));
 }
 
-function GridIcon({ color, size = 20 }) {
+function BookIcon({ color, size = 20 }) {
+  const stroke = { stroke: color, strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', fill: 'none' };
   return h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none' }, [
-    h('rect', { key: 'a', x: 3,  y: 3,  width: 8, height: 8, rx: 1.8, stroke: color, strokeWidth: 1.8 }),
-    h('rect', { key: 'b', x: 13, y: 3,  width: 8, height: 8, rx: 1.8, stroke: color, strokeWidth: 1.8 }),
-    h('rect', { key: 'c', x: 3,  y: 13, width: 8, height: 8, rx: 1.8, stroke: color, strokeWidth: 1.8 }),
-    h('rect', { key: 'd', x: 13, y: 13, width: 8, height: 8, rx: 1.8, stroke: color, strokeWidth: 1.8 }),
+    h('path', { key: 'l', d: 'M12 6c-1.7-1.2-3.9-1.7-6-1.5-1.1.1-2 .4-2 .4v13.6s.9-.3 2-.4c2.1-.2 4.3.3 6 1.5', ...stroke }),
+    h('path', { key: 'r', d: 'M12 6c1.7-1.2 3.9-1.7 6-1.5 1.1.1 2 .4 2 .4v13.6s-.9-.3-2-.4c-2.1-.2-4.3.3-6 1.5', ...stroke }),
+    h('line', { key: 's', x1: 12, y1: 6, x2: 12, y2: 19.5, ...stroke }),
   ]);
 }
 
@@ -1007,7 +1007,7 @@ function TabBar({ tab, onTab }) {
       border: '1px solid rgba(255,255,255,.5)',
       boxShadow: '0 6px 20px rgba(42,8,36,.10), inset 0 1px 1px rgba(255,255,255,.6)',
     },
-  }, [seg('flush', DropletIcon, 'Flush'), seg('digest', GridIcon, 'Digest')]));
+  }, [seg('flush', DropletIcon, 'Flush'), seg('digest', BookIcon, 'Digest')]));
 }
 
 function FlushTabApp() {

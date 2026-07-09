@@ -980,21 +980,43 @@ function BookIcon({ color, size = 20 }) {
 }
 
 function TabBar({ tab, onTab }) {
+  const TABS = ['flush', 'digest'];
+  const BTN_W = 52, BTN_H = 44, GAP = 2, PAD = 3;
+  const idx = TABS.indexOf(tab);
+  const BOUNCE = 'cubic-bezier(.34,1.56,.64,1)';
+
+  const [squash, setSquash] = React.useState(false);
+  const squashT = React.useRef(null);
+  const handleTab = (id) => {
+    if (id !== tab) {
+      setSquash(true);
+      clearTimeout(squashT.current);
+      squashT.current = setTimeout(() => setSquash(false), 240);
+    }
+    onTab(id);
+  };
+  React.useEffect(() => () => clearTimeout(squashT.current), []);
+
   const seg = (id, Icon, label) => {
     const active = tab === id;
     const color = active ? '#2A0824' : 'rgba(42,8,36,.38)';
     return h('button', {
-      key: id, onClick: () => onTab(id), 'aria-label': label,
+      key: id, onClick: () => handleTab(id), 'aria-label': label,
       style: {
-        appearance: 'none', border: 'none', cursor: 'pointer',
-        width: 52, height: 44, borderRadius: 9999,
+        position: 'relative', zIndex: 1,
+        appearance: 'none', border: 'none', cursor: 'pointer', background: 'transparent',
+        width: BTN_W, height: BTN_H,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        background: active ? '#FFFFFF' : 'transparent',
-        boxShadow: active ? '0 2px 8px rgba(42,8,36,.12)' : 'none',
-        transition: `background .28s ${EASE}, box-shadow .28s ${EASE}`,
       },
-    }, h(Icon, { color, size: 20 }));
+    }, h(Icon, {
+      color, size: 20,
+      style: {
+        transform: active ? 'scale(1.12)' : 'scale(1)',
+        transition: `transform .5s ${BOUNCE}, color .28s ${EASE}`,
+      },
+    }));
   };
+
   return h('div', {
     style: {
       position: 'absolute', left: 0, right: 0, bottom: 26, zIndex: 8,
@@ -1002,12 +1024,26 @@ function TabBar({ tab, onTab }) {
     },
   }, h('div', {
     style: {
-      display: 'flex', gap: 2, padding: 3, borderRadius: 9999,
+      position: 'relative', display: 'flex', gap: GAP, padding: PAD, borderRadius: 9999,
       background: 'rgba(255,255,255,.28)', backdropFilter: 'blur(16px) saturate(1.4)', WebkitBackdropFilter: 'blur(16px) saturate(1.4)',
       border: '1px solid rgba(255,255,255,.5)',
       boxShadow: '0 6px 20px rgba(42,8,36,.10), inset 0 1px 1px rgba(255,255,255,.6)',
     },
-  }, [seg('flush', DropletIcon, 'Flush'), seg('digest', BookIcon, 'Digest')]));
+  }, [
+    // sliding pill — springs from one tab to the other with a playful overshoot
+    h('div', {
+      key: 'pill',
+      style: {
+        position: 'absolute', top: PAD, left: PAD, width: BTN_W, height: BTN_H, borderRadius: 9999,
+        background: '#FFFFFF', boxShadow: '0 2px 8px rgba(42,8,36,.12)',
+        transformOrigin: 'center',
+        transform: `translateX(${idx * (BTN_W + GAP)}px) scaleX(${squash ? 1.22 : 1})`,
+        transition: `transform .5s ${BOUNCE}`,
+      },
+    }),
+    seg('flush', DropletIcon, 'Flush'),
+    seg('digest', BookIcon, 'Digest'),
+  ]));
 }
 
 function FlushTabApp() {

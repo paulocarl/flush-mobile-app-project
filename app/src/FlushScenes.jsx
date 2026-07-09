@@ -18,6 +18,7 @@ if (!document.getElementById('flush-kf')) {
   @keyframes flush-eq     { 0%,100%{transform:scaleY(.35)} 50%{transform:scaleY(1)} }
   @keyframes flush-bob    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
   @keyframes flush-pop    { 0%{opacity:0;transform:scale(.72)} 60%{opacity:1} 100%{opacity:1;transform:scale(1)} }
+  @keyframes flush-spin   { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
   `;
   document.head.appendChild(s);
 }
@@ -102,7 +103,7 @@ const idleCenter = {
   padding: '96px 30px 104px', boxSizing: 'border-box', textAlign: 'center',
 };
 
-function ShazamButton({ onClick, size = 132, ringColor, core, coreColor, coreBorder, glyph, rings = 3, glass = false }) {
+function ShazamButton({ onClick, size = 132, ringColor, core, coreColor, coreBorder, glyph, rings = 3, glass = false, outline = false }) {
   const [hov, setHov] = React.useState(false);
   return h('button', {
     onClick, onMouseEnter: () => setHov(true), onMouseLeave: () => setHov(false),
@@ -134,7 +135,9 @@ function ShazamButton({ onClick, size = 132, ringColor, core, coreColor, coreBor
         WebkitBackdropFilter: glass ? 'blur(14px) saturate(1.6)' : 'none',
         boxShadow: glass
           ? '0 14px 34px rgba(42,8,36,.18), inset 0 1.5px 2px rgba(255,255,255,.9), inset 0 -14px 26px rgba(120,110,140,.18)'
-          : '0 12px 34px rgba(1,2,4,.28)',
+          : outline
+            ? '0 6px 18px rgba(42,8,36,.10)'
+            : '0 12px 34px rgba(1,2,4,.28)',
         animation: `flush-breathe 4s ${EASE} infinite`,
       },
     }, [
@@ -147,6 +150,53 @@ function ShazamButton({ onClick, size = 132, ringColor, core, coreColor, coreBor
       }),
       h('div', { key: 'g', style: { position: 'relative', display: 'flex' } }, glyph),
     ]),
+  ]);
+}
+
+// immersive light staged behind a ShazamButton: a breathing warm glow, slow
+// rotating sunburst beams, and a bright glint that sweeps around the rim
+function BeamHalo({ size = 200 }) {
+  return h('div', {
+    style: {
+      position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
+      width: size, height: size, pointerEvents: 'none', zIndex: 0,
+    },
+  }, [
+    h('div', {
+      key: 'glow',
+      style: {
+        position: 'absolute', top: '50%', left: '50%', width: size * 1.55, height: size * 1.55,
+        transform: 'translate(-50%,-50%)', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(255,232,175,.55) 0%, rgba(255,228,166,.22) 42%, rgba(255,228,166,0) 72%)',
+        filter: `blur(${Math.round(size * 0.1)}px)`,
+        animation: `flush-glow 4.6s ${EASE} infinite`,
+      },
+    }),
+    h('div', {
+      key: 'beams',
+      style: {
+        position: 'absolute', top: '50%', left: '50%', width: size * 2.1, height: size * 2.1,
+        transform: 'translate(-50%,-50%)', borderRadius: '50%',
+        background: `conic-gradient(from 0deg,
+          transparent 0deg, rgba(255,241,204,.34) 7deg, transparent 24deg,
+          transparent 86deg, rgba(255,241,204,.26) 96deg, transparent 116deg,
+          transparent 176deg, rgba(255,241,204,.30) 186deg, transparent 206deg,
+          transparent 266deg, rgba(255,241,204,.24) 276deg, transparent 296deg,
+          transparent 360deg)`,
+        filter: `blur(${Math.round(size * 0.05)}px)`,
+        animation: 'flush-spin 26s linear infinite',
+      },
+    }),
+    h('div', {
+      key: 'orbit', style: { position: 'absolute', inset: 0, animation: 'flush-spin 10s linear infinite' },
+    }, h('div', {
+      style: {
+        position: 'absolute', top: -3, left: '50%', width: 9, height: 9, marginLeft: -4.5,
+        borderRadius: '50%', filter: 'blur(1.2px)',
+        background: 'radial-gradient(circle, #fff 0%, rgba(255,241,204,.75) 45%, rgba(255,241,204,0) 75%)',
+        boxShadow: '0 0 12px 3px rgba(255,232,175,.55)',
+      },
+    })),
   ]);
 }
 
@@ -590,7 +640,7 @@ function WeatherScene(props) {
     ? 'linear-gradient(180deg,#FFF7DE 0%,#FDF0C4 42%,#FCEFD4 100%)'
     : recording
       ? 'linear-gradient(180deg,#BFB9CE 0%,#C9C3D6 55%,#D3CEDD 100%)'
-      : 'linear-gradient(180deg,#DFE8EE 0%,#EAEAE2 58%,#F4F0E7 100%)';
+      : '#F3ECDD';
 
   return h('div', { style: { position: 'absolute', inset: 0, background: bg, transition: `background 1.4s ${EASE}`, overflow: 'hidden' } }, [
     h(WeatherCanvas, { key: 'wx', phase }),
@@ -912,21 +962,38 @@ function DigestScreen() {
   ]);
 }
 
+function DropletIcon({ color, size = 20 }) {
+  return h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none' },
+    h('path', {
+      d: 'M12 3.3C12 3.3 6.2 11 6.2 15.4a5.8 5.8 0 0011.6 0C17.8 11 12 3.3 12 3.3z',
+      stroke: color, strokeWidth: 1.8, strokeLinejoin: 'round',
+    }));
+}
+
+function GridIcon({ color, size = 20 }) {
+  return h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none' }, [
+    h('rect', { key: 'a', x: 3,  y: 3,  width: 8, height: 8, rx: 1.8, stroke: color, strokeWidth: 1.8 }),
+    h('rect', { key: 'b', x: 13, y: 3,  width: 8, height: 8, rx: 1.8, stroke: color, strokeWidth: 1.8 }),
+    h('rect', { key: 'c', x: 3,  y: 13, width: 8, height: 8, rx: 1.8, stroke: color, strokeWidth: 1.8 }),
+    h('rect', { key: 'd', x: 13, y: 13, width: 8, height: 8, rx: 1.8, stroke: color, strokeWidth: 1.8 }),
+  ]);
+}
+
 function TabBar({ tab, onTab }) {
-  const seg = (id, label) => {
+  const seg = (id, Icon, label) => {
     const active = tab === id;
+    const color = active ? '#2A0824' : 'rgba(42,8,36,.38)';
     return h('button', {
-      key: id, onClick: () => onTab(id),
+      key: id, onClick: () => onTab(id), 'aria-label': label,
       style: {
         appearance: 'none', border: 'none', cursor: 'pointer',
-        padding: '10px 26px', borderRadius: 9999,
+        width: 52, height: 44, borderRadius: 9999,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
         background: active ? '#FFFFFF' : 'transparent',
         boxShadow: active ? '0 2px 8px rgba(42,8,36,.12)' : 'none',
-        color: active ? '#2A0824' : 'rgba(42,8,36,.38)',
-        fontFamily: '"Season Sans",system-ui', fontSize: 15, fontWeight: active ? 600 : 500,
-        letterSpacing: 0.1, transition: `background .28s ${EASE}, color .28s ${EASE}, box-shadow .28s ${EASE}`,
+        transition: `background .28s ${EASE}, box-shadow .28s ${EASE}`,
       },
-    }, label);
+    }, h(Icon, { color, size: 20 }));
   };
   return h('div', {
     style: {
@@ -940,7 +1007,7 @@ function TabBar({ tab, onTab }) {
       border: '1px solid rgba(255,255,255,.5)',
       boxShadow: '0 6px 20px rgba(42,8,36,.10), inset 0 1px 1px rgba(255,255,255,.6)',
     },
-  }, [seg('flush', 'Flush'), seg('digest', 'Digest')]));
+  }, [seg('flush', DropletIcon, 'Flush'), seg('digest', GridIcon, 'Digest')]));
 }
 
 function FlushTabApp() {
@@ -960,11 +1027,17 @@ function FlushTabApp() {
           'No need to explain.',
           "There's no wrong way.",
         ] }),
-        h(ShazamButton, {
-          key: 'btn', onClick: start, size: 200,
-          ringColor: 'rgba(76,29,68,.4)', core: '#010204', coreColor: '#fff',
-          glyph: h(WaveGlyph, { color: '#fff', size: 46 }),
-        }),
+        h('div', { key: 'btnwrap', style: { position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' } }, [
+          h(BeamHalo, { key: 'beam', size: 200 }),
+          h(ShazamButton, {
+            key: 'btn', onClick: start, size: 200,
+            ringColor: 'rgba(76,29,68,.4)',
+            outline: true,
+            core: 'rgba(1,2,4,.02)', coreColor: '#2A0824',
+            coreBorder: '1.5px solid #2A0824',
+            glyph: h(WaveGlyph, { color: '#2A0824', size: 46 }),
+          }),
+        ]),
         idleCaption('Tap to start talking', 'rgba(42,8,36,.6)'),
       ],
     }),

@@ -1,0 +1,645 @@
+/* Grow Therapy tokens — local font subset (Sans + Serif VF) */
+@font-face{font-family:"Season Sans";src:url("./fonts/SeasonSansVF.woff2") format("woff2-variations");font-weight:100 1000;font-style:normal;font-display:swap;}
+@font-face{font-family:"Season Sans";src:url("./fonts/SeasonSansItalicsVF.woff2") format("woff2-variations");font-weight:100 1000;font-style:italic;font-display:swap;}
+@font-face{font-family:"Season Serif";src:url("./fonts/SeasonSerifVF.woff2") format("woff2-variations");font-weight:100 1000;font-style:normal;font-display:swap;}
+@font-face{font-family:"Season Serif";src:url("./fonts/SeasonSerifItalicsVF.woff2") format("woff2-variations");font-weight:100 1000;font-style:italic;font-display:swap;}
+
+/* -------------------- 2. Base colour palette ---------------- */
+/* Color keys are named after characters; *.500 is the canonical hue. */
+:root {
+  /* ---- Key hues ---- */
+  --c-ziggy-500:    #4c1d44;  /* BRAND plum */
+  --c-bowie-500:    #2a0824;  /* darker plum / inverse brand */
+  --c-neo-500:      #010204;  /* near-black (primary actions) */
+  --c-frodo-500:    #4a412d;  /* warm olive */
+  --c-wilson-500:   #e3dfda;  /* warm neutral surface */
+  --c-winnie-500:   #e8f02c;  /* yellow accent — covers, highlights, dark-mode brand */
+  --c-lasso-500:    #ff5e48;  /* coral red — danger / accent */
+  --c-elle-500:     #ffa2f2;  /* pink — accent */
+  --c-sproutie-500: #28c266;  /* green — success */
+  --c-jackie-500:   #7d8fe0;  /* periwinkle — cool accent */
+  --c-kareem-500:   #ad802b;  /* gold — cool accent */
+  --c-fraiser-500:  #ffffff;
+  --c-fraiser-0:    #ffffff;
+
+  /* ---- Brand plum scale (ziggy) ---- */
+  --c-ziggy-0:   #ffffff;
+  --c-ziggy-50:  #ece6ea;
+  --c-ziggy-75:  #e3dae0;
+  --c-ziggy-100: #daced7;
+  --c-ziggy-150: #c7b6c3;
+  --c-ziggy-200: #b59faf;
+  --c-ziggy-250: #a3889c;
+  --c-ziggy-300: #91718a;
+  --c-ziggy-350: #805c78;
+  --c-ziggy-400: #6f4666;
+  --c-ziggy-450: #5d3254;
+  --c-ziggy-500: #4c1d44;
+  --c-ziggy-600: #3e1937;
+  --c-ziggy-650: #371831;
+  --c-ziggy-700: #30162a;
+  --c-ziggy-775: #251321;
+  --c-ziggy-800: #22121f;
+  --c-ziggy-900: #160a13;
+
+  /* ---- Inverse plum scale (bowie) ---- */
+  --c-bowie-50:  #e8e3e6;
+  --c-bowie-100: #d1c8ce;
+  --c-bowie-300: #7a6274;
+  --c-bowie-500: #2a0824;
+  --c-bowie-700: #1e0619;
+  --c-bowie-900: #0e020b;
+
+  /* ---- Warm neutral scale (wilson) — backgrounds + soft borders ---- */
+  --c-wilson-0:   #ffffff;
+  --c-wilson-25:  #fefefd;
+  --c-wilson-50:  #fcfcfb;
+  --c-wilson-100: #f9f9f7;
+  --c-wilson-150: #f7f5f4;
+  --c-wilson-200: #f4f2f0;
+  --c-wilson-250: #f1efec;
+  --c-wilson-300: #eeece9;
+  --c-wilson-350: #ebe8e5;
+  --c-wilson-400: #e8e5e1;
+  --c-wilson-450: #e6e2de;
+  --c-wilson-500: #e3dfda;
+  --c-wilson-550: #e6e2de;
+  --c-wilson-600: #b1aeaa;
+  --c-wilson-650: #999693;
+  --c-wilson-700: #817f7d;
+  --c-wilson-750: #6b6967;
+  --c-wilson-800: #555452;
+  --c-wilson-850: #403f3e;
+  --c-wilson-900: #2c2b2b;
+  --c-wilson-950: #1a1919;
+
+  /* ---- Pure neutral scale (neo) — text + inverse surfaces ---- */
+  --c-neo-0:   #ffffff;
+  --c-neo-25:  #f1f1f1;
+  --c-neo-50:  #e3e3e3;
+  --c-neo-75:  #d4d5d5;
+  --c-neo-100: #c6c7c7;
+  --c-neo-125: #b9b9b9;
+  --c-neo-150: #abacac;
+  --c-neo-175: #9e9e9f;
+  --c-neo-200: #919192;
+  --c-neo-250: #777878;
+  --c-neo-300: #5f5f60;
+  --c-neo-350: #474848;
+  --c-neo-400: #313132;
+  --c-neo-450: #1c1d1d;
+  --c-neo-500: #010204;
+  --c-neo-1000:#000000;
+
+  /* ---- Accent fields (warm + cool) ---- */
+  --c-elle-100:  #ffedfc;
+  --c-elle-500:  #ffa2f2;
+  --c-elle-900:  #31232e;
+
+  --c-lasso-50:  #fff0eb;
+  --c-lasso-150: #ffd2c6;
+  --c-lasso-250: #ffb3a0;
+  --c-lasso-300: #ffa38d;
+  --c-lasso-350: #ff937c;
+  --c-lasso-400: #ff826a;
+  --c-lasso-500: #ff5e48;
+  --c-lasso-550: #e35541;
+  --c-lasso-600: #c74d3a;
+  --c-lasso-650: #ac4434;
+  --c-lasso-750: #793327;
+  --c-lasso-850: #49221a;
+  --c-lasso-900: #321914;
+  --c-lasso-950: #1e100c;
+
+  --c-winnie-0:   #ffffff;
+  --c-winnie-100: #fefcda;
+  --c-winnie-150: #fcfac7;
+  --c-winnie-200: #faf9b4;
+  --c-winnie-350: #f3f47a;
+  --c-winnie-500: #e8f02c;
+  --c-winnie-650: #9da127;
+  --c-winnie-900: #2e2e14;
+  --c-winnie-1000:#000000;
+
+  --c-kareem-100: #f1e4d3;
+  --c-kareem-500: #ad802b;
+  --c-kareem-900: #251d10;
+
+  --c-jackie-100: #e6e8f9;
+  --c-jackie-500: #7d8fe0;
+  --c-jackie-900: #1d1f2c;
+
+  --c-frodo-0:   #ffffff;
+  --c-frodo-25:  #f5f5f3;
+  --c-frodo-150: #c5c1ba;
+  --c-frodo-450: #5a523f;
+  --c-frodo-500: #4a412d;
+  --c-frodo-700: #2e291e;
+
+  --c-sproutie-0:   #ffffff;
+  --c-sproutie-100: #dbf4e0;
+  --c-sproutie-500: #28c266;
+  --c-sproutie-900: #152819;
+  --c-sproutie-950: #0e1810;
+
+
+  /* -------------------- 3. Semantic colour tokens ------------ */
+  /* CANONICAL tokens — mirror the Figma sem.color.* dot-paths.
+     These are the theming surface; the Dark Mode block at the
+     bottom overrides them. */
+
+  /* ---- Surface ---- */
+  --sem-color-surface-default:                 var(--c-wilson-0);
+  --sem-color-surface-subtle:                  var(--c-wilson-50);
+  --sem-color-surface-emphasis:                var(--c-wilson-450);
+  --sem-color-surface-brand:                   var(--c-ziggy-500);
+  --sem-color-surface-borderless:              var(--c-wilson-0);
+  --sem-color-surface-inverse:                 var(--c-neo-500);
+  --sem-color-surface-inverse-emphasis:        var(--c-neo-400);
+  --sem-color-surface-state-hover-default:     var(--c-wilson-50);
+  --sem-color-surface-state-hover-emphasis:    var(--c-wilson-200);
+  --sem-color-surface-state-pressed-default:   var(--c-wilson-400);
+  --sem-color-surface-state-pressed-emphasis:  var(--c-wilson-550);
+  --sem-color-surface-state-inactive-default:  var(--c-wilson-150);
+  --sem-color-surface-state-inactive-emphasis: var(--c-wilson-450);
+  --sem-color-surface-state-inactive-inverse:  var(--c-neo-400);
+  --sem-color-surface-state-selected-brand:           var(--c-wilson-250);
+  --sem-color-surface-state-selected-brand-emphasis:  var(--c-wilson-450);
+
+  /* ---- Border ---- */
+  --sem-color-border-default:                  var(--c-wilson-700);
+  --sem-color-border-subtle:                   var(--c-wilson-550);
+  --sem-color-border-borderless:               var(--c-wilson-700);
+  --sem-color-border-inverse:                  var(--c-wilson-0);
+  --sem-color-border-state-hover-default:      var(--c-wilson-850);
+  --sem-color-border-state-inactive-default:   var(--c-wilson-500);
+  --sem-color-border-state-selected-default:   var(--c-frodo-500);
+  --sem-color-border-state-selected-emphasis:  var(--c-frodo-700);
+
+  /* ---- Text ---- */
+  --sem-color-text-default:                    var(--c-neo-500);
+  --sem-color-text-muted:                      var(--c-neo-300);
+  --sem-color-text-borderless:                 var(--c-neo-500);
+  --sem-color-text-brand:                      var(--c-ziggy-500);
+  --sem-color-text-inverse:                    var(--c-wilson-0);
+  --sem-color-text-inverse-muted:              var(--c-neo-100);
+  --sem-color-text-state-hover-default:        var(--c-neo-400);
+  --sem-color-text-state-inactive-default:     var(--c-neo-400);
+  --sem-color-text-state-selected-default:     var(--c-neo-500);
+
+  /* ---- Action: Primary (near-black pill) ---- */
+  --sem-color-action-primary-surface:                  var(--c-neo-500);
+  --sem-color-action-primary-border:                   var(--c-neo-500);
+  --sem-color-action-primary-text:                     var(--c-wilson-0);
+  --sem-color-action-primary-text-link:                var(--c-neo-500);
+  --sem-color-action-primary-state-hover-surface:      var(--c-wilson-600);
+  --sem-color-action-primary-state-hover-border:       var(--c-wilson-600);
+  --sem-color-action-primary-state-pressed-surface:    var(--c-wilson-800);
+  --sem-color-action-primary-state-pressed-border:     var(--c-wilson-800);
+  --sem-color-action-primary-state-inactive-surface:   var(--c-wilson-600);
+  --sem-color-action-primary-state-inactive-border:    var(--c-wilson-600);
+  --sem-color-action-primary-state-inactive-text:      var(--c-neo-400);
+  --sem-color-action-primary-state-loading-surface:    var(--c-neo-500);
+
+  /* ---- Action: Secondary (outline pill) ---- */
+  --sem-color-action-secondary-surface:                transparent;
+  --sem-color-action-secondary-border:                 var(--c-neo-500);
+  --sem-color-action-secondary-text:                   var(--c-neo-500);
+  --sem-color-action-secondary-text-link:              var(--c-neo-500);
+  --sem-color-action-secondary-state-hover-surface:    var(--c-wilson-250);
+  --sem-color-action-secondary-state-hover-border:     var(--c-neo-500);
+  --sem-color-action-secondary-state-hover-text:       var(--c-neo-500);
+  --sem-color-action-secondary-state-pressed-surface:  var(--c-wilson-400);
+  --sem-color-action-secondary-state-pressed-border:   var(--c-neo-500);
+  --sem-color-action-secondary-state-selected-surface: var(--c-neo-500);
+  --sem-color-action-secondary-state-selected-border:  var(--c-neo-500);
+  --sem-color-action-secondary-state-inactive-text:    var(--c-neo-400);
+  --sem-color-action-secondary-state-inactive-text-link: var(--c-wilson-750);
+
+  /* ---- Action: Brand (deep plum) ---- */
+  --sem-color-action-brand-surface:                    var(--c-ziggy-500);
+  --sem-color-action-brand-border:                     var(--c-ziggy-500);
+  --sem-color-action-brand-text:                       var(--c-ziggy-0);
+  --sem-color-action-brand-text-link:                  var(--c-ziggy-450);
+  --sem-color-action-brand-state-hover-surface:        var(--c-ziggy-650);
+  --sem-color-action-brand-state-hover-border:         var(--c-ziggy-650);
+  --sem-color-action-brand-state-pressed-surface:      var(--c-ziggy-775);
+  --sem-color-action-brand-state-pressed-border:       var(--c-ziggy-775);
+  --sem-color-action-brand-state-inactive-surface:     var(--c-ziggy-350);
+  --sem-color-action-brand-state-inactive-border:      var(--c-ziggy-350);
+  --sem-color-action-brand-state-inactive-text:        var(--c-ziggy-50);
+  --sem-color-action-brand-state-loading-surface:      var(--c-ziggy-500);
+
+  /* ---- Action: Secondary Danger ---- */
+  --sem-color-action-secondaryDanger-border:               var(--c-lasso-550);
+  --sem-color-action-secondaryDanger-text:                 var(--c-lasso-650);
+  --sem-color-action-secondaryDanger-state-hover-surface:  var(--c-lasso-50);
+  --sem-color-action-secondaryDanger-state-hover-border:   var(--c-lasso-550);
+  --sem-color-action-secondaryDanger-state-hover-text:     var(--c-lasso-750);
+  --sem-color-action-secondaryDanger-state-pressed-surface:var(--c-lasso-150);
+  --sem-color-action-secondaryDanger-state-pressed-border: var(--c-lasso-550);
+  --sem-color-action-secondaryDanger-state-pressed-text:   var(--c-lasso-850);
+  --sem-color-action-secondaryDanger-state-inactive-border:var(--c-lasso-500);
+  --sem-color-action-secondaryDanger-state-inactive-text:  var(--c-lasso-650);
+
+  /* ---- Action: Focus ring ---- */
+  --sem-color-action-focusRing-default:        var(--c-neo-500);
+  --sem-color-action-focusRing-inverse:        var(--c-wilson-0);
+
+  /* ---- Status ---- */
+  --sem-color-status-success-surface: var(--c-sproutie-500);
+  --sem-color-status-success-text:    var(--c-sproutie-900);
+  --sem-color-status-success-border:  var(--c-sproutie-500);
+  --sem-color-status-warning-surface: var(--c-winnie-500);
+  --sem-color-status-warning-text:    var(--c-winnie-900);
+  --sem-color-status-warning-border:  var(--c-winnie-500);
+  --sem-color-status-error-surface:   var(--c-lasso-500);
+  --sem-color-status-error-text:      var(--c-lasso-600);
+  --sem-color-status-error-border:    var(--c-lasso-550);
+
+  /* ---- Accent ramps ---- */
+  --sem-color-accent-warm1-surface: var(--c-elle-500);     --sem-color-accent-warm1-text: var(--c-elle-900);     --sem-color-accent-warm1-border: var(--c-elle-500);
+  --sem-color-accent-warm2-surface: var(--c-lasso-500);    --sem-color-accent-warm2-text: var(--c-lasso-900);    --sem-color-accent-warm2-border: var(--c-lasso-500);
+  --sem-color-accent-warm3-surface: var(--c-winnie-500);   --sem-color-accent-warm3-text: var(--c-winnie-900);   --sem-color-accent-warm3-border: var(--c-winnie-500);
+  --sem-color-accent-warm4-surface: var(--c-kareem-500);   --sem-color-accent-warm4-text: var(--c-kareem-900);   --sem-color-accent-warm4-border: var(--c-kareem-500);
+  --sem-color-accent-cool1-surface: var(--c-jackie-500);   --sem-color-accent-cool1-text: var(--c-jackie-900);   --sem-color-accent-cool1-border: var(--c-jackie-500);
+  --sem-color-accent-cool2-surface: var(--c-frodo-450);    --sem-color-accent-cool2-text: var(--c-frodo-25);     --sem-color-accent-cool2-border: var(--c-frodo-450);
+  --sem-color-accent-cool3-surface: var(--c-sproutie-500); --sem-color-accent-cool3-text: var(--c-sproutie-950); --sem-color-accent-cool3-border: var(--c-sproutie-500);
+
+
+  /* -------------------- 3b. Legacy aliases ------------------- */
+  /* Short names used throughout the kits/cards. They point at the
+     canonical tokens above, so they follow the active theme. */
+  --sem-surface-default:        var(--sem-color-surface-default);
+  --sem-surface-subtle:         var(--sem-color-surface-subtle);
+  --sem-surface-emphasis:       var(--sem-color-surface-emphasis);
+  --sem-surface-brand:          var(--sem-color-surface-brand);
+  --sem-surface-borderless:     var(--sem-color-surface-borderless);
+  --sem-surface-inverse:        var(--sem-color-surface-inverse);
+  --sem-surface-inverse-soft:   var(--sem-color-surface-inverse-emphasis);
+  --sem-surface-hover:          var(--sem-color-surface-state-hover-emphasis);
+  --sem-surface-pressed:        var(--sem-color-surface-state-pressed-default);
+  --sem-surface-selected:       var(--sem-color-surface-state-selected-brand);
+
+  --sem-border-default:    var(--sem-color-border-default);
+  --sem-border-subtle:     var(--sem-color-border-subtle);
+  --sem-border-borderless: var(--sem-color-border-borderless);
+  --sem-border-hover:      var(--sem-color-border-state-hover-default);
+  --sem-border-selected:   var(--sem-color-border-state-selected-default);
+  --sem-border-inverse:    var(--sem-color-border-inverse);
+  --sem-border-strong:     var(--c-neo-500);
+
+  --sem-text-default:        var(--sem-color-text-default);
+  --sem-text-muted:          var(--sem-color-text-muted);
+  --sem-text-subtle:         var(--c-wilson-750);
+  --sem-text-borderless:     var(--sem-color-text-borderless);
+  --sem-text-inverse:        var(--sem-color-text-inverse);
+  --sem-text-inverse-muted:  var(--sem-color-text-inverse-muted);
+  --sem-text-brand:          var(--sem-color-text-brand);
+  --sem-text-link:           var(--sem-color-text-default);
+
+  --sem-action-primary-surface:           var(--sem-color-action-primary-surface);
+  --sem-action-primary-text:              var(--sem-color-action-primary-text);
+  --sem-action-primary-border:            var(--sem-color-action-primary-border);
+  --sem-action-primary-hover-surface:     var(--sem-color-action-primary-state-hover-surface);
+  --sem-action-primary-pressed-surface:   var(--sem-color-action-primary-state-pressed-surface);
+  --sem-action-primary-inactive-surface:  var(--sem-color-action-primary-state-inactive-surface);
+
+  --sem-action-secondary-surface:         var(--sem-color-action-secondary-surface);
+  --sem-action-secondary-text:            var(--sem-color-action-secondary-text);
+  --sem-action-secondary-border:          var(--sem-color-action-secondary-border);
+  --sem-action-secondary-hover-surface:   var(--sem-color-action-secondary-state-hover-surface);
+  --sem-action-secondary-pressed-surface: var(--sem-color-action-secondary-state-pressed-surface);
+
+  --sem-action-brand-surface:        var(--sem-color-action-brand-surface);
+  --sem-action-brand-text:           var(--sem-color-action-brand-text);
+  --sem-action-brand-border:         var(--sem-color-action-brand-border);
+  --sem-action-brand-hover-surface:  var(--sem-color-action-brand-state-hover-surface);
+  --sem-action-brand-pressed-surface:var(--sem-color-action-brand-state-pressed-surface);
+
+  --sem-action-danger-text:    var(--sem-color-action-secondaryDanger-text);
+  --sem-action-danger-border:  var(--sem-color-action-secondaryDanger-border);
+  --sem-action-danger-hover:   var(--sem-color-action-secondaryDanger-state-hover-surface);
+  --sem-action-danger-pressed: var(--sem-color-action-secondaryDanger-state-pressed-surface);
+
+  --sem-focus-ring: var(--sem-color-action-focusRing-default);
+
+  --sem-status-success-surface: var(--sem-color-status-success-surface);
+  --sem-status-success-text:    var(--sem-color-status-success-text);
+  --sem-status-success-soft:    var(--c-sproutie-100);
+  --sem-status-warning-surface: var(--sem-color-status-warning-surface);
+  --sem-status-warning-text:    var(--sem-color-status-warning-text);
+  --sem-status-warning-soft:    var(--c-winnie-100);
+  --sem-status-error-surface:   var(--sem-color-status-error-surface);
+  --sem-status-error-text:      var(--sem-color-status-error-text);
+  --sem-status-error-soft:      var(--c-lasso-50);
+  --sem-status-info-surface:    var(--c-jackie-500);
+  --sem-status-info-text:       var(--c-jackie-900);
+  --sem-status-info-soft:       var(--c-jackie-100);
+
+  --sem-accent-warm1: var(--c-elle-500);
+  --sem-accent-warm2: var(--c-lasso-500);
+  --sem-accent-warm3: var(--c-winnie-500);
+  --sem-accent-warm4: var(--c-kareem-500);
+  --sem-accent-cool1: var(--c-jackie-500);
+  --sem-accent-cool2: var(--c-frodo-450);
+  --sem-accent-cool3: var(--c-sproutie-500);
+
+
+  /* -------------------- 4. Spacing & sizing ------------------ */
+  --space-50:  2px;
+  --space-100: 4px;
+  --space-125: 6px;
+  --space-150: 8px;
+  --space-200: 12px;
+  --space-250: 16px;
+  --space-300: 20px;
+  --space-350: 24px;
+  --space-400: 28px;
+  --space-450: 32px;
+  --space-500: 36px;
+  --space-550: 48px;
+  --space-600: 56px;
+  --space-650: 64px;
+  --space-700: 72px;
+  --space-750: 88px;
+  --space-800: 96px;
+
+
+  /* -------------------- 5. Radii ----------------------------- */
+  --radius-sm:    8px;
+  --radius-md:    12px;
+  --radius-lg:    16px;
+  --radius-xl:    20px;
+  --radius-2xl:   24px;
+  --radius-3xl:   32px;
+  --radius-pill:  9999px;   /* primary button shape */
+
+
+  /* -------------------- 6. Shadows --------------------------- */
+  --shadow-card:
+    0 28px 18px -8px rgba(0,0,0,0.05),
+    0 12px 12px  -4px rgba(0,0,0,0.09),
+    0  2px  6px  -2px rgba(0,0,0,0.10);
+  --shadow-popover:
+    0 8px 24px rgba(0,0,0,0.08),
+    0 2px 6px  rgba(0,0,0,0.08);
+  --shadow-inset-divider: inset 0 -1px 0 var(--sem-border-subtle);
+
+
+  /* -------------------- 7. Motion ---------------------------- */
+  --duration-fast:     200ms;
+  --duration-default:  350ms;
+  --easing-entrance:   cubic-bezier(0, 0, 0.38, 0.9);
+  --easing-exit:       cubic-bezier(0.22, 1, 0.36, 1);
+  --easing-standard:   cubic-bezier(0.4, 0, 0.2, 1);
+
+
+  /* -------------------- 8. Typography ------------------------ */
+  --font-sans: "Season Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif:"Season Serif", "Season Sans", ui-serif, Georgia, serif;
+  --font-mix: "Season Mix", "Season Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Font-weight tokens (base.fontWeight.*) */
+  --fw-regular:  400;   /* seasonSansRegular */
+  --fw-medium:   500;   /* seasonSansMedium / seasonSerif (wght 490) */
+  --fw-semibold: 600;   /* seasonSansSemibold / seasonSerifSmallerThan32 (wght 570) */
+  --fw-heavy:    800;   /* seasonSansHeavy */
+
+  /* Letter-spacing tokens (base.letterSpacing.*) */
+  --ls-tight:   -1px;
+  --ls-default: -0.25px;
+  --ls-loose:    0px;
+  --ls-looser:   0.75px;
+  --ls-loosest:  1.25px;
+
+  /* Type scale */
+  --fs-10: 10px;
+  --fs-12: 12px;
+  --fs-14: 14px;
+  --fs-16: 16px;
+  --fs-18: 18px;
+  --fs-20: 20px;
+  --fs-24: 24px;
+  --fs-28: 28px;
+  --fs-32: 32px;
+  --fs-40: 40px;
+  --fs-48: 48px;
+  --fs-56: 56px;
+  --fs-64: 64px;
+  --fs-88: 88px;
+
+  color-scheme: light;
+}
+
+
+/* =============================================================
+   8b. Dark Mode theme  (Figma "Dark Mode" living documentation)
+   Apply with <html data-theme="dark"> or class .theme-dark.
+   Brand flips from plum → winnie yellow; neutrals invert.
+   Only canonical tokens are overridden — legacy aliases follow.
+   Surface default/subtle are inferred (not specified in the
+   source) to give a coherent dark page background.
+   ============================================================= */
+[data-theme="dark"], .theme-dark {
+  color-scheme: dark;
+
+  /* Surface */
+  --sem-color-surface-default:                 var(--c-wilson-950);   /* inferred */
+  --sem-color-surface-subtle:                  var(--c-wilson-900);   /* inferred */
+  --sem-color-surface-emphasis:                var(--c-neo-400);
+  --sem-color-surface-brand:                   var(--c-winnie-500);
+  --sem-color-surface-borderless:              var(--c-wilson-900);
+  --sem-color-surface-inverse:                 var(--c-neo-0);
+  --sem-color-surface-inverse-emphasis:        var(--c-neo-100);
+  --sem-color-surface-state-hover-default:     var(--c-wilson-950);
+  --sem-color-surface-state-hover-emphasis:    var(--c-wilson-800);
+  --sem-color-surface-state-pressed-default:   var(--c-wilson-850);
+  --sem-color-surface-state-pressed-emphasis:  var(--c-wilson-700);
+  --sem-color-surface-state-inactive-default:  var(--c-wilson-850);
+  --sem-color-surface-state-inactive-emphasis: var(--c-wilson-700);
+  --sem-color-surface-state-inactive-inverse:  var(--c-wilson-300);
+  --sem-color-surface-state-selected-brand:           var(--c-wilson-950);
+  --sem-color-surface-state-selected-brand-emphasis:  var(--c-wilson-800);
+
+  /* Border */
+  --sem-color-border-default:                  var(--c-wilson-700);
+  --sem-color-border-subtle:                   var(--c-wilson-850);
+  --sem-color-border-borderless:               var(--c-wilson-750);
+  --sem-color-border-inverse:                  var(--c-neo-500);
+  --sem-color-border-state-hover-default:      var(--c-wilson-700);
+  --sem-color-border-state-inactive-default:   var(--c-wilson-500);
+  --sem-color-border-state-selected-default:   var(--c-frodo-0);
+  --sem-color-border-state-selected-emphasis:  var(--c-frodo-150);
+
+  /* Text */
+  --sem-color-text-default:                    var(--c-neo-0);
+  --sem-color-text-muted:                      var(--c-neo-100);
+  --sem-color-text-borderless:                 var(--c-neo-0);
+  --sem-color-text-brand:                      var(--c-winnie-500);
+  --sem-color-text-inverse:                    var(--c-neo-500);
+  --sem-color-text-inverse-muted:              var(--c-neo-400);
+  --sem-color-text-state-hover-default:        var(--c-neo-100);
+  --sem-color-text-state-inactive-default:     var(--c-neo-100);
+  --sem-color-text-state-selected-default:     var(--c-neo-0);
+
+  /* Action: Primary (white pill on dark) */
+  --sem-color-action-primary-surface:                  var(--c-neo-0);
+  --sem-color-action-primary-border:                   var(--c-neo-0);
+  --sem-color-action-primary-text:                     var(--c-neo-500);
+  --sem-color-action-primary-text-link:                var(--c-neo-0);
+  --sem-color-action-primary-state-hover-surface:      var(--c-wilson-600);
+  --sem-color-action-primary-state-hover-border:       var(--c-wilson-600);
+  --sem-color-action-primary-state-pressed-surface:    var(--c-wilson-600);
+  --sem-color-action-primary-state-pressed-border:     var(--c-wilson-600);
+  --sem-color-action-primary-state-inactive-surface:   var(--c-wilson-750);
+  --sem-color-action-primary-state-inactive-border:    var(--c-wilson-750);
+  --sem-color-action-primary-state-inactive-text:      var(--c-wilson-300);
+  --sem-color-action-primary-state-loading-surface:    var(--c-neo-0);
+
+  /* Action: Secondary (white outline on dark) */
+  --sem-color-action-secondary-border:                 var(--c-neo-0);
+  --sem-color-action-secondary-text:                   var(--c-neo-0);
+  --sem-color-action-secondary-text-link:              var(--c-neo-0);
+  --sem-color-action-secondary-state-hover-surface:    var(--c-wilson-900);
+  --sem-color-action-secondary-state-hover-border:     var(--c-neo-0);
+  --sem-color-action-secondary-state-hover-text:       var(--c-neo-0);
+  --sem-color-action-secondary-state-pressed-surface:  var(--c-wilson-800);
+  --sem-color-action-secondary-state-pressed-border:   var(--c-neo-0);
+  --sem-color-action-secondary-state-selected-surface: var(--c-neo-0);
+  --sem-color-action-secondary-state-selected-border:  var(--c-neo-0);
+  --sem-color-action-secondary-state-inactive-border:  var(--c-wilson-250);
+  --sem-color-action-secondary-state-inactive-text:    var(--c-neo-0);
+  --sem-color-action-secondary-state-inactive-text-link: var(--c-wilson-650);
+
+  /* Action: Brand (winnie yellow) */
+  --sem-color-action-brand-surface:                    var(--c-winnie-500);
+  --sem-color-action-brand-border:                     var(--c-winnie-500);
+  --sem-color-action-brand-text:                       var(--c-winnie-1000);
+  --sem-color-action-brand-text-link:                  var(--c-winnie-500);
+  --sem-color-action-brand-state-hover-surface:        var(--c-winnie-350);
+  --sem-color-action-brand-state-hover-border:         var(--c-winnie-350);
+  --sem-color-action-brand-state-pressed-surface:      var(--c-winnie-150);
+  --sem-color-action-brand-state-pressed-border:       var(--c-winnie-150);
+  --sem-color-action-brand-state-inactive-surface:     var(--c-winnie-650);
+  --sem-color-action-brand-state-inactive-border:      var(--c-winnie-650);
+  --sem-color-action-brand-state-inactive-text:        var(--c-winnie-900);
+  --sem-color-action-brand-state-loading-surface:      var(--c-winnie-500);
+
+  /* Action: Secondary Danger */
+  --sem-color-action-secondaryDanger-border:               var(--c-lasso-550);
+  --sem-color-action-secondaryDanger-text:                 var(--c-lasso-650);
+  --sem-color-action-secondaryDanger-state-hover-surface:  var(--c-lasso-950);
+  --sem-color-action-secondaryDanger-state-hover-border:   var(--c-lasso-550);
+  --sem-color-action-secondaryDanger-state-hover-text:     var(--c-lasso-250);
+  --sem-color-action-secondaryDanger-state-pressed-surface:var(--c-lasso-850);
+  --sem-color-action-secondaryDanger-state-pressed-border: var(--c-lasso-550);
+  --sem-color-action-secondaryDanger-state-pressed-text:   var(--c-lasso-350);
+  --sem-color-action-secondaryDanger-state-inactive-border:var(--c-lasso-300);
+  --sem-color-action-secondaryDanger-state-inactive-text:  var(--c-lasso-400);
+
+  /* Focus ring */
+  --sem-color-action-focusRing-default:        var(--c-winnie-500);
+  --sem-color-action-focusRing-inverse:        var(--c-ziggy-500);
+
+  /* Status (success text flips to white on the green) */
+  --sem-color-status-success-text:    var(--c-sproutie-0);
+
+  --sem-text-subtle: var(--c-wilson-600);
+  --sem-status-success-soft: var(--c-sproutie-950);
+  --sem-status-warning-soft: var(--c-winnie-900);
+  --sem-status-error-soft:   var(--c-lasso-950);
+}
+
+
+/* =============================================================
+   9. Semantic typography classes
+   These follow the figma `sem.typography.*` tokens directly.
+   ============================================================= */
+
+/* ---- Display (serif, large) — for hero headlines ---- */
+.t-display-lg   { font-family:var(--font-serif); font-weight:500; font-size:88px;  line-height:88px;  letter-spacing:0; }
+.t-display      { font-family:var(--font-serif); font-weight:500; font-size:64px;  line-height:64px;  letter-spacing:0; }
+.t-display-sm   { font-family:var(--font-serif); font-weight:500; font-size:48px;  line-height:50px;  letter-spacing:0; }
+.t-display-m-lg { font-family:var(--font-serif); font-weight:500; font-size:56px;  line-height:56px;  letter-spacing:0; }
+.t-display-m    { font-family:var(--font-serif); font-weight:500; font-size:40px;  line-height:41px;  letter-spacing:0; }
+.t-display-m-sm { font-family:var(--font-serif); font-weight:500; font-size:32px;  line-height:33px;  letter-spacing:0; }
+
+/* ---- Subhead — serif and sans variants ---- */
+.t-subhead-serif-lg { font-family:var(--font-serif); font-weight:600; font-size:32px; line-height:38px; }
+.t-subhead-serif    { font-family:var(--font-serif); font-weight:600; font-size:24px; line-height:29px; }
+.t-subhead-serif-sm { font-family:var(--font-serif); font-weight:600; font-size:20px; line-height:24px; }
+.t-subhead-sans-lg  { font-family:var(--font-sans);  font-weight:500; font-size:32px; line-height:38px; }
+.t-subhead-sans     { font-family:var(--font-sans);  font-weight:500; font-size:24px; line-height:29px; }
+.t-subhead-sans-sm  { font-family:var(--font-sans);  font-weight:500; font-size:20px; line-height:24px; }
+
+/* ---- Body ---- */
+.t-body-lg          { font-family:var(--font-sans); font-weight:400; font-size:20px; line-height:28px; }
+.t-body             { font-family:var(--font-sans); font-weight:400; font-size:16px; line-height:24px; }
+.t-body-sm          { font-family:var(--font-sans); font-weight:400; font-size:14px; line-height:20px; }
+.t-body-xs          { font-family:var(--font-sans); font-weight:400; font-size:12px; line-height:16px; }
+.t-body-emph        { font-family:var(--font-sans); font-weight:500; font-size:16px; line-height:24px; }
+.t-body-emph-sm     { font-family:var(--font-sans); font-weight:500; font-size:14px; line-height:20px; }
+.t-body-emph-xs     { font-family:var(--font-sans); font-weight:500; font-size:12px; line-height:16px; }
+
+/* ---- Label (compact, no extra leading) ---- */
+.t-label            { font-family:var(--font-sans); font-weight:400; font-size:16px; line-height:16px; }
+.t-label-sm         { font-family:var(--font-sans); font-weight:400; font-size:14px; line-height:14px; }
+.t-label-emph       { font-family:var(--font-sans); font-weight:500; font-size:16px; line-height:16px; }
+.t-label-emph-sm    { font-family:var(--font-sans); font-weight:500; font-size:14px; line-height:14px; }
+.t-label-emph-xs    { font-family:var(--font-sans); font-weight:500; font-size:12px; line-height:12px; }
+
+/* ---- Eyebrow (ALL CAPS) ---- */
+.t-eyebrow          { font-family:var(--font-sans); font-weight:500; font-size:10px; line-height:14px;
+                      letter-spacing:0.75px; text-transform:uppercase; }
+.t-eyebrow-lg       { font-family:var(--font-sans); font-weight:500; font-size:12px; line-height:16px;
+                      letter-spacing:0.75px; text-transform:uppercase; }
+.t-eyebrow-emph     { font-family:var(--font-sans); font-weight:800; font-size:16px; line-height:16px;
+                      letter-spacing:0.4px;  text-transform:uppercase; }
+
+/* ---- Quote (italic serif) ---- */
+.t-quote-xl         { font-family:var(--font-serif); font-style:italic; font-weight:500;
+                      font-size:32px; line-height:38px; }
+.t-quote-lg         { font-family:var(--font-serif); font-style:italic; font-weight:500;
+                      font-size:20px; line-height:24px; }
+.t-quote            { font-family:var(--font-serif); font-style:italic; font-weight:500;
+                      font-size:16px; line-height:24px; }
+
+
+/* =============================================================
+   10. HTML element defaults (apply when this stylesheet is the
+   main one on a page).
+   ============================================================= */
+html, body {
+  background: var(--sem-surface-default);
+  color:      var(--sem-text-default);
+  font-family:var(--font-sans);
+  font-size:  16px;
+  line-height:1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1 { font: 500 64px/64px var(--font-serif); letter-spacing:0; margin:0 0 .4em; color:inherit; }
+h2 { font: 500 48px/50px var(--font-serif); letter-spacing:0; margin:0 0 .4em; color:inherit; }
+h3 { font: 600 32px/38px var(--font-serif); margin:0 0 .4em; }
+h4 { font: 500 24px/29px var(--font-sans);  margin:0 0 .5em; }
+h5 { font: 500 20px/24px var(--font-sans);  margin:0 0 .5em; }
+h6 { font: 500 16px/16px var(--font-sans);  margin:0 0 .5em; }
+p  { margin: 0 0 1em; }
+em { font-style: italic; }
+
+a {
+  color: var(--sem-text-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  transition: color .15s var(--easing-standard);
+}
+a:hover { color: var(--c-wilson-750); }
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--sem-border-subtle);
+  margin: 1.5em 0;
+}

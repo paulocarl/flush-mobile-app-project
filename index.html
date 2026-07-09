@@ -10,19 +10,39 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
+    html, body {
+      width: 100%; height: 100%; overflow: hidden;
       background: #1a1a1a;
-      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 48px 24px;
-      -webkit-font-smoothing: antialiased;
+    }
+    #root {
+      transform-origin: center center;
     }
   </style>
 </head>
 <body>
   <div id="root"></div>
+  <script>
+    const DEVICE_W = 402, DEVICE_H = 874;
+
+    function scaleToFit() {
+      const scale = Math.min(
+        window.innerWidth  / DEVICE_W,
+        window.innerHeight / DEVICE_H
+      );
+      document.getElementById('root').style.transform = `scale(${scale})`;
+    }
+
+    window.addEventListener('resize', scaleToFit);
+    // run once DOM is ready
+    document.addEventListener('DOMContentLoaded', scaleToFit);
+  </script>
+
   <script>
     (async function () {
       try {
@@ -43,6 +63,7 @@
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(React.createElement(window.FlushWeatherTap));
+        scaleToFit();
       } catch (err) {
         document.getElementById('root').innerHTML =
           '<pre style="color:#ff5e48;padding:32px;font-size:13px;white-space:pre-wrap">' +

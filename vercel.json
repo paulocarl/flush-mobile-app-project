@@ -1,0 +1,4 @@
+{
+  "buildCommand": "npm install --prefix app && npm run build --prefix app",
+  "outputDirectory": "app/dist"
+}
